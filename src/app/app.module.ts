@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core'
+import { NgModule, APP_INITIALIZER, } from '@angular/core'
 import { RouterModule, Routes, Router } from '@angular/router'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './material.module'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
+import { AuthService } from './auth.service'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
@@ -42,7 +44,17 @@ const appRoutes: Routes = [
       scrollPositionRestoration: 'enabled'
     })
   ],
-  providers: [],
+  providers: [
+    { // initialize app service globally
+      provide: APP_INITIALIZER,
+      // tslint:disable-next-line:typedef
+      useFactory(as: AuthService) {
+        return () => as.init()
+      },
+      multi: true,
+      deps: [ AuthService ],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

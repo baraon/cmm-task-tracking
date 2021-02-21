@@ -7,5 +7,10 @@ module.exports = {
         port: process.env.DB_PORT || 3306,
         database: process.env.DB_DATABASE || 'task_tracking',
         password: process.env.DB_PASS || 'YellowUmbrell@1'
+    },
+    session: {
+        name: 'tasks.sid',
+        domain: 'baraon.dev',
+        secret: 'elongated-muskrats-and-navalnys'
     }
 }

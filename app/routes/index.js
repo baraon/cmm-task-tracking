@@ -9,13 +9,20 @@ module.exports = app => {
   const auth = require( './auth' )
   const users = require( './users' )
 
+  // Authentication endpoints
+  let authRouter = express.Router()
+  authRouter.post( '/login', auth.login )
+
   // API endpoints
   let apiRouter = express.Router()
+
+  // Unauthenticated routes
+  apiRouter.get( '/me', auth.getMe )
 
   // User Routes
   apiRouter.post( '/users', users.create )
 
-  //apiRouter.get( '/me', auth.getMe )
+  app.use ( '/auth', authRouter )
   app.use( '/api', apiRouter )
 
   const unhandled = route => {
@@ -24,5 +31,7 @@ module.exports = app => {
       res.status( 404 ).json( { error: 'unhandled route' } )
     }
   }
+
+  authRouter.all( '*', unhandled( 'auth'  ))
   apiRouter.all( '*', unhandled( 'api' ) )
 }

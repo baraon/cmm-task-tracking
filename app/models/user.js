@@ -5,6 +5,10 @@ const findById = ( id ) => {
     return connector.execQuery( 'get_user_by_id', [ id ] )
 }
 
+const findByEmail = ( email ) => {
+    return connector.execQuery( 'get_user_by_email', [ email ] )
+}
+
 const createUser = ( email, password ) => {
     return connector.execQuery( 'create_user', [ email, password ] )
 }
@@ -17,18 +21,17 @@ const verifyPassword = ( password, userPassword ) => {
     return password && userPassword ? bcrypt.compareSync( password, userPassword ) : false
 }
 
-// Take a user query result and transform it to JSON with secure fields removed
+// Take a user and transform it to JSON with secure fields removed
 const safeUser = ( user ) => {
-    const trueUser = user[0][0]
-
     return {
-        id: trueUser.id,
-        email: trueUser.email,
+        id: user.id,
+        email: user.email,
     }
 }
 
 module.exports = {
     findById,
+    findByEmail,
     createUser,
     generateHash,
     verifyPassword,

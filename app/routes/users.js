@@ -22,7 +22,7 @@ external.create = async ( req, res ) => {
         if ( !user )
             throw 'Newly created user not found'
 
-        res.json({ user: models.User.safeUser( user ) })
+        res.json({ user: models.User.safeUser( user[0][0] ) })
     }).catch( err => {
         console.error( err )
         res.sendStatus(500)
