@@ -5,6 +5,9 @@ module.exports = app => {
 
   // authentication helper
 
+  // Route functions
+  const auth = require( './auth' )
+  const users = require( './users' )
   // API endpoints
   let apiRouter = express.Router()
 

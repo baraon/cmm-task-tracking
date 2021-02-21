@@ -60,14 +60,8 @@ internal.grab = ( dbName = config.sqlOptions.database ) => {
     return internal._connection[ dbName ]
 }
 
-internal.execQuery = ( instruction, params = [], debug = true ) => {
-    if(debug) {
-        let query = integrator.load( instruction )
-
-        for ( let param of params )
-            query = query.replace( '?', param )
-    }
-
+internal.execQuery = ( instruction, params = [] ) => {
+    console.log( instruction, params )
     return internal.grab().query( integrator.load( instruction ), params )
 }
 
