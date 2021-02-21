@@ -1,0 +1,35 @@
+.main-navigation {
+    width: 100%;
+}
+
+.main-navigation mat-toolbar-row {
+    display: grid;
+    grid-template-areas: 'logo links menu';
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 32px;
+    padding: 0 32px;
+}
+
+.main-navigation .logo {
+    font-family: Oxygen, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: white
+}
+
+.main-navigation .links {
+    display: flex;
+}
+
+.main-navigation .links a {
+    font-family: Oxygen, sans-serif;
+    color: white;
+}
+
+.main-navigation .links a:hover {
+    color: var(--accent);
+}
+
+.main-navigation .links a:not(:last-child) {
+    padding-right: 16px;
+}

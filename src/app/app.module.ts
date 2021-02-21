@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AuthService } from './auth.service'
 
 import { AppComponent } from './app.component'
-import { DashboardComponent } from './dashboard/dashboard.component'
 
 
 const appRoutes: Routes = [
@@ -19,7 +18,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    loadChildren: './dashboard/dashboard.module#DashboardModule'
   },
   { // Redirect from anywhere not explicitly listed above to the dashboard
     path: '**',
@@ -30,7 +29,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
   ],
   imports: [
     BrowserModule,
