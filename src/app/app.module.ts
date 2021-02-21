@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
+import { MaterialModule } from './material.module'
 
 const appRoutes: Routes = [
   {
@@ -29,6 +30,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     RouterModule.forRoot( appRoutes, {
       enableTracing: false,
       scrollPositionRestoration: 'enabled'

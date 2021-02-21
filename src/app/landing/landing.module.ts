@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes, Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
-import {LoginComponent} from './login/login.component'
-import {SignupComponent} from './signup/signup.component'
-import {BrowserModule} from '@angular/platform-browser'
-import {FormsModule} from '@angular/forms'
-import {LandingComponent} from './landing.component'
+import { LoginComponent } from './login/login.component'
+import { SignupComponent } from './signup/signup.component'
+import { MaterialModule } from '../material.module'
+import { FormsModule } from '@angular/forms'
+import { LandingComponent } from './landing.component'
 
 const routes: Routes = [{
   path: '',
   component: LandingComponent,
   children: [{
     path: '',
-    component: LoginComponent
+    redirectTo: 'login'
   }, {
     path: 'login',
     component: LoginComponent
@@ -24,13 +24,14 @@ const routes: Routes = [{
 
 @NgModule({
   declarations: [
-      LoginComponent,
-      SignupComponent,
-      LandingComponent
+    LoginComponent,
+    SignupComponent,
+    LandingComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     RouterModule.forChild( routes )
   ]
 })

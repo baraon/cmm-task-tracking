@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+
+    font-family: Oxygen, sans-serif;
+    font-weight: 400;
+}
