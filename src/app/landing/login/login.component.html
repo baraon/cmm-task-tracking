@@ -1,10 +1,14 @@
-<mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput>
-</mat-form-field>
-<mat-form-field appearance="outline">
-    <mat-label>Password</mat-label>
-    <input matInput type="password">
-</mat-form-field>
-<div class="divider"></div>
-<a routerLink="/signup">Register Here</a>
+<h2 class="landing-title">Log In</h2>
+<form class="landing-form" [formGroup]="loginForm" #formDirective="ngForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" value="" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" value="" required type="password">
+    </mat-form-field>
+    <button mat-raised-button class="submit-button" type="submit"
+            [disabled]="!loginForm.valid" color="primary" (click)="login(formDirective)">Log In</button>
+</form>
+<a class="landing-redirect" routerLink="/signup">Register Here</a>

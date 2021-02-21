@@ -1,3 +1,13 @@
+:root {
+    --primary: #7b1fa2;
+    --accent: #69f0ae;
+    --warn: #f44336;
+
+    --disabled: #686868;
+    --inactive: #424242;
+    --background: #303030;
+}
+
 html {
     -webkit-font-smoothing: antialiased;
 }
@@ -10,4 +20,36 @@ body {
 
     font-family: Oxygen, sans-serif;
     font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a {
+    margin: 0;
+    padding: 0;
+}
+
+a, a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
+/* Landing Component Material Overrides */
+#landing .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: var(--primary);
+}
+
+#landing .mat-form-field-label {
+    color: var(--primary);
+}
+
+#landing .mat-input-element {
+    color: var(--primary);
+}
+
+#landing .mat-raised-button.mat-button-disabled.mat-button-disabled {
+    background-color: var(--inactive);
 }

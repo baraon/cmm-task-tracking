@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-
+    "bcrypt-nodejs": "0.0.3",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "express-sanitized": "^0.5.1",

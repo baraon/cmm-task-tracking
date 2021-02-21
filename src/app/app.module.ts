@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes, Router } from '@angular/router'
 import { BrowserModule } from '@angular/platform-browser'
-import { LandingModule } from './landing/landing.module'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MaterialModule } from './material.module'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
-import { MaterialModule } from './material.module'
+
 
 const appRoutes: Routes = [
   {
@@ -26,11 +28,14 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MaterialModule,
     RouterModule.forRoot( appRoutes, {
       enableTracing: false,

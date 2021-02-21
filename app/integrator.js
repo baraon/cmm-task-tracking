@@ -5,15 +5,15 @@ let methods = {}
 let instructions = {}
 
 methods.load = descriptor => {
-    if(instructions[descriptor])
-        return instructions[descriptor]
+    if ( instructions[ descriptor ] )
+        return instructions[ descriptor ]
 
-    let fullPath = path.join(__dirname, `instructions/${descriptor}.sql`)
+    let fullPath = path.join( __dirname, `instructions/${descriptor}.sql` )
     if(!fs.existsSync(fullPath))
-        throw 'Developer made a mistake, SQL instruction ' + descriptor + ' does not exist'
+        throw 'SQL instruction ' + descriptor + ' does not exist'
 
-    let content = fs.readFileSync(fullPath, 'utf8').trim()
-    return (instructions[descriptor] = content)
+    let content = fs.readFileSync( fullPath, 'utf8' ).trim()
+    return ( instructions[ descriptor ] = content )
 }
 
 module.exports = methods

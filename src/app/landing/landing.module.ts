@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'
 import { LoginComponent } from './login/login.component'
 import { SignupComponent } from './signup/signup.component'
 import { MaterialModule } from '../material.module'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { LandingComponent } from './landing.component'
 
 const routes: Routes = [{
@@ -31,6 +31,7 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild( routes )
   ]

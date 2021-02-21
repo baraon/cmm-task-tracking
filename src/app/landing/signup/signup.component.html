@@ -1,1 +1,14 @@
-<p>signup works!</p>
+<h2 class="landing-title">Registration</h2>
+<form class="landing-form" [formGroup]="signUpForm" #formDirective="ngForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" value="" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" value="" required type="password">
+    </mat-form-field>
+    <button mat-raised-button class="submit-button" type="submit"
+            [disabled]="!signUpForm.valid" color="primary" (click)="signUp(formDirective)">Register</button>
+</form>
+<a class="landing-redirect" routerLink="/login">Already Registered? Log in Here</a>

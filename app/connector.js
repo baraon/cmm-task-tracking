@@ -21,8 +21,6 @@ internal.establish = _ => {
             database: dbName
         })
 
-        //console.log(connection)
-
         return {
             _: connection,
             name: dbName
@@ -61,7 +59,6 @@ internal.grab = ( dbName = config.sqlOptions.database ) => {
 }
 
 internal.execQuery = ( instruction, params = [] ) => {
-    console.log( instruction, params )
     return internal.grab().query( integrator.load( instruction ), params )
 }
 

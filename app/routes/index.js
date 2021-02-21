@@ -8,14 +8,13 @@ module.exports = app => {
   // Route functions
   const auth = require( './auth' )
   const users = require( './users' )
+
   // API endpoints
   let apiRouter = express.Router()
 
-  // unauthenticated routes
+  // User Routes
+  apiRouter.post( '/users', users.create )
 
-  apiRouter.get( '/cat', (req, res) => {
-    res.send( 'api works uwu' )
-  })
   //apiRouter.get( '/me', auth.getMe )
   app.use( '/api', apiRouter )
 
