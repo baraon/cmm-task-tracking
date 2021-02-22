@@ -17,6 +17,7 @@ CREATE TABLE projects (
     name varchar(255) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (customer_id) REFERENCES customers(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE tasks (
@@ -25,6 +26,7 @@ CREATE TABLE tasks (
     project_id int NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (project_id) REFERENCES projects(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE task_logs (
@@ -35,4 +37,5 @@ CREATE TABLE task_logs (
     PRIMARY KEY (id),
     FOREIGN KEY (task_id) REFERENCES tasks(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
 );

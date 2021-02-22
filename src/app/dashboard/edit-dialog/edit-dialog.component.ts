@@ -34,27 +34,33 @@ export class EditDialogComponent implements OnInit {
     this.type = this.data.type
     this.operation = this.data.operation
     console.log( this.data )
-    if ( this.type === 'projects' ) {
+    let id = -1
+    if ( this.data.item && this.data.item.id )
+      id = this.data.item.id
+
+    if ( this.type === 'customers' ) {
+      let name = ''
+      if ( this.data.item && this.data.item.name )
+        name = this.data.item.name
+
+      this.fields = this.fb.group({
+        name: [ name, Validators.required ],
+        id: [ id ]
+      })
+    }
+    else if ( this.type === 'projects' ) {
       let name = ''
       if ( this.data.item && this.data.item.name )
         name = this.data.item.name
 
       let parent = ''
-      if ( this.data.item && this.data.item.customer_id )
-        parent = this.data.item.customer_id
+      if ( this.data.context && this.data.context.parent )
+        parent = this.data.context.parent
 
       this.fields = this.fb.group({
         name: [ name, Validators.required ],
-        parent: [ parent ]
-      })
-    }
-    else if ( this.type === 'customers' ) {
-      let name = ''
-      if ( this.data.item && this.data.item.name )
-        name = this.data.item.name
-
-      this.fields = this.fb.group({
-        name: [ name, Validators.required ]
+        parent: [ parent ],
+        id: [ id ]
       })
     }
     else if ( this.type === 'tasks' ) {
@@ -63,18 +69,18 @@ export class EditDialogComponent implements OnInit {
         description = this.data.item.description
 
       let parent = ''
-      if ( this.data.item && this.data.item.project_id )
-        parent = this.data.item.project_id
+      if ( this.data.context && this.data.context.parent )
+        parent = this.data.context.parent
 
       this.fields = this.fb.group({
         description: [ description, Validators.required ],
-        parent: [ parent ]
+        parent: [ parent ],
+        id: [ id ]
       })
     }
   }
 
-  // tslint:disable-next-line:typedef
-  formRouter( formDirective ) {
+  formRouter( formDirective ): void {
     if ( this.operation === 'add' )
       this.add( formDirective )
     else if ( this.operation === 'edit' )
@@ -82,30 +88,43 @@ export class EditDialogComponent implements OnInit {
   }
 
   add( formDirective ): void {
-    console.log(formDirective)
+    // check if form is valid and not empty
 
+    const value = formDirective.form.value
     // forming url from presets declare above
-    let url = `/api/${this.apiCalls[this.type].start}`
+    let url = `/api/${ this.apiCalls[ this.type ].start }`
 
+    console.log( formDirective.form.value )
     if ( formDirective.form.value.parent )
-      url += `/${formDirective.form.value.parent}/${this.type}`
+      url += `/${ value.parent }/${ this.type }`
 
-    const body = formDirective.form.value
+    console.log( url )
 
-    this.http.post( url, body ).toPromise().then( (data: any) => {
+    this.http.post( url, value ).toPromise().then( (data: any) => {
       if ( !data ) {
-        console.log( 'Error happened' )
+        console.error( 'Error occurred adding to ' + this.type )
         return
       }
 
-      this.dialogRef.close( data )
+      this.dialogRef.close( { add: data } )
     })
   }
 
 
 
   edit( formDirective ): void {
-    console.log( formDirective )
+    // check if form is valid and not empty
+    const value = formDirective.form.value
+    const url = `/api/${ this.type }/${ value.id }`
+
+    this.http.patch( url, value ).toPromise().then( (data: any) => {
+      if ( !data ) {
+        console.error( 'Error occurred editing to ' + this.type )
+        return
+      }
+
+      this.dialogRef.close( { edit: data } )
+    })
   }
 
 }

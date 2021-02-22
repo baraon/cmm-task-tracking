@@ -68,4 +68,21 @@ external.getMe = ( req, res ) => {
   })
 }
 
+external.logout = ( req, res ) => {
+  if ( req.user ) {
+
+    return req.session.destroy( ( err ) => {
+      if ( err )
+        return res.json({ error: err })
+
+      console.info('Successfully destroyed session.')
+      req.user = null
+      res.json({ user: null })
+    })
+  }
+
+  console.info('Already logged out.')
+  res.json({ user: null })
+}
+
 module.exports = external

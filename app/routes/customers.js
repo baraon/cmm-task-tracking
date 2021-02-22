@@ -13,10 +13,8 @@ external.create = async ( req, res ) => {
         if ( !results || !results.length )
             return res.sendStatus( 500 )
 
-        console.log( results )
         // Retrieve newly created customer
         const customer = await models.Customer.findById( results[ 0 ].insertId )
-        console.log( customer[0][0] )
         if ( !customer )
             return res.sendStatus( 500 )
 
@@ -30,9 +28,6 @@ external.create = async ( req, res ) => {
 external.read = async ( req, res ) => {
     if ( !req.user )
         return res.sendStatus(401)
-
-    console.log( req.query )
-
     // if req query all, return EVERYTHING about the customers
     // then get every project
     // then get every task
@@ -100,10 +95,24 @@ external.update = async ( req, res ) => {
     if ( !req.params || !req.params.id || !req.body || !req.body.name )
         return res.sendStatus( 422 )
 
-    return models.Customer.editCustomer( req.params.id, req.body.name ).then( results => {
-        console.log( results )
+    return models.Customer.editCustomer( req.params.id, req.body.name ).then( async results => {
+        // get newly created customer
+        let customer = await models.Customer.findById( req.params.id ).then( customer => customer[0][0] )
+        // get all projects associated with customer
+        let projects = await models.Project.findByCustomerId( customer.id ).then( projects => projects[0] )
+        // get all tasks associated with projects
+        const projectIds = projects.map( project => project.id )
+        const tasks = await models.Task.findByProjectIds( projectIds ).then( tasks => tasks[0] )
 
-        return res.sendStatus( 200 )
+        customer.projects = projects.map( project => {
+            project.tasks = []
+            tasks.forEach( task => {
+                if ( task.project_id === project.id )
+                    project.tasks.push( Object.assign({}, task ) )
+            })
+            return project
+        })
+        return res.json({ customer })
     }).catch( err => {
         console.error( err )
         return res.sendStatus( 500 )
@@ -111,8 +120,19 @@ external.update = async ( req, res ) => {
 }
 
 external.delete = async ( req, res ) => {
-    // must delete every task associated with every project associated with the customer
     console.log( 'customer delete heard' )
+    if ( !req.user )
+        return res.sendStatus( 401 )
+
+    if ( !req.params || !req.params.id )
+        return res.sendStatus( 422 )
+
+    return models.Customer.deleteCustomer( req.params.id ).then( result => {
+        return res.json({ id: req.params.id })
+    }).catch( err => {
+        console.error( err )
+        return res.sendStatus( 500 )
+    })
 }
 
 module.exports = external

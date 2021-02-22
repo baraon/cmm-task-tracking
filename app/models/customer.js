@@ -16,9 +16,14 @@ const editCustomer = ( id, name ) => {
     return connector.execQuery( 'edit_customer', [ name, id ] )
 }
 
+const deleteCustomer = ( id ) => {
+    return connector.execQuery( 'delete_customer', [ id ] )
+}
+
 module.exports = {
     getCustomers,
     createCustomer,
     findById,
-    editCustomer
+    editCustomer,
+    deleteCustomer
 }

@@ -16,6 +16,7 @@ module.exports = app => {
   // Authentication endpoints
   let authRouter = express.Router()
   authRouter.post( '/login', auth.login )
+  authRouter.get( '/logout', auth.logout )
 
   // API endpoints
   let apiRouter = express.Router()
@@ -29,7 +30,7 @@ module.exports = app => {
   // Customer Routes
   apiRouter.get( '/customers', customers.read )
   apiRouter.post( '/customers', customers.create )
-  apiRouter.patch( '/customer/:id', customers.update )
+  apiRouter.patch( '/customers/:id', customers.update )
   apiRouter.delete( '/customers/:id', customers.delete )
 
   // Project Routes

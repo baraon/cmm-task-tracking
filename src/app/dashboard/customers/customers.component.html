@@ -6,7 +6,7 @@
             <span>{{ customer.name }}</span>
             <button mat-icon-button
                     [matMenuTriggerFor]="options"
-                    [matMenuTriggerData]="{ item: customer, type: 'customers' }"><mat-icon>settings</mat-icon></button>
+                    [matMenuTriggerData]="{ item: customer, type: 'customers', context: null }"><mat-icon>settings</mat-icon></button>
         </mat-card-title>
         <mat-card-content>
             <mat-accordion>
@@ -20,12 +20,12 @@
                                 {{ task.description }}
                                 <button mat-icon-button
                                         [matMenuTriggerFor]="options"
-                                        [matMenuTriggerData]="{ item: task, type: 'tasks' }">
+                                        [matMenuTriggerData]="{ item: task, type: 'tasks', context: customer.id }">
                                     <mat-icon>settings</mat-icon>
                                 </button>
                             </div>
                             <button mat-raised-button color="accent"
-                                    class="add-task" (click)="addTask( project.id )">Add Task</button>
+                                    class="add-task" (click)="addTask( project.id, customer.id )">Add Task</button>
                         </mat-panel-description>
                         <mat-action-row>
                             <button mat-raised-button color="accent" (click)="editItem( project, 'projects' )">Edit Project</button>
@@ -40,8 +40,8 @@
     </mat-card>
 </div>
 <mat-menu #options="matMenu">
-    <ng-template matMenuContent let-item="item" let-type="type">
-        <button mat-menu-item (click)="editItem( item, type )"><mat-icon>edit</mat-icon> Edit</button>
-        <button mat-menu-item (click)="deleteItem( item, type )"><mat-icon>delete_forever</mat-icon> Delete</button>
+    <ng-template matMenuContent let-item="item" let-type="type" let-context="context">
+        <button mat-menu-item (click)="editItem( item, type, context )"><mat-icon>edit</mat-icon> Edit</button>
+        <button mat-menu-item (click)="deleteItem( item, type, context )"><mat-icon>delete_forever</mat-icon> Delete</button>
     </ng-template>
 </mat-menu>

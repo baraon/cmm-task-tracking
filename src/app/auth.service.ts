@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import {Router} from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class AuthService {
   isLoggedIn = false
   isLoggedIn$ = new BehaviorSubject( this.isLoggedIn )
 
-  constructor( public http: HttpClient ) { }
+  manualLogout = false
+
+  constructor( public http: HttpClient, public router: Router ) { }
 
   init(): Promise<any> {
     return this.http.get( '/api/me' ).toPromise().then( (data: any) => {
@@ -38,5 +41,13 @@ export class AuthService {
 
       sessionStorage.clear()
     }
+  }
+
+  logout(): void {
+    this.setUser( null )
+    this.manualLogout = true
+    this.http.get( '/auth/logout' ).toPromise().then( (data: any) => {
+      this.router.navigate([ '/login' ])
+    })
   }
 }
