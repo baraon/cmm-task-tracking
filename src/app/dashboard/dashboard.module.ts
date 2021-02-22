@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { DashboardComponent } from './dashboard.component'
 import { CustomersComponent } from './customers/customers.component'
 import { TasksComponent } from './tasks/tasks.component'
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component'
+import {MatDialog, MatDialogModule} from '@angular/material/dialog'
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component'
 
 const routes: Routes = [{
   path: '',
@@ -26,14 +29,20 @@ const routes: Routes = [{
   declarations: [
     DashboardComponent,
     CustomersComponent,
-    TasksComponent
+    TasksComponent,
+    EditDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
+    MatDialogModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild( routes )
+  ],
+  entryComponents: [
+      EditDialogComponent
   ]
 })
 export class DashboardModule { }

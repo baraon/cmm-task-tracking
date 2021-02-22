@@ -1,0 +1,56 @@
+.customers {
+    display: grid;
+    box-sizing: border-box;
+    grid-gap: 16px;
+    padding: 16px;
+    overflow-y: scroll;
+    height: 100%;
+    max-height: calc( 100vh - 64px );
+}
+
+.customer {
+    display: grid;
+    background-color: white;
+    color: var(--primary);
+}
+
+.customer-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-expansion-panel-header-description {
+    flex-direction: column;
+}
+
+.mat-accordion {
+    display: grid;
+    grid-gap: 16px;
+}
+
+.add-customer {
+    justify-self: center;
+    align-self: start;
+}
+
+.add-task {
+    align-self: center;
+}
+
+.add-project {
+    justify-self: center;
+}
+
+.tasks .task {
+    color: var(--accent);
+    padding: 16px 0;
+}
+
+.tasks .task:first-of-type {
+    border-bottom: none;
+    padding: 0 0 16px;
+}
+
+.tasks .task:not(:last-of-type) {
+    border-bottom: 1px solid var(--accent);
+}

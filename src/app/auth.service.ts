@@ -16,7 +16,6 @@ export class AuthService {
 
   init(): Promise<any> {
     return this.http.get( '/api/me' ).toPromise().then( (data: any) => {
-      console.log( 'init call', data )
       this.setUser( data )
       return Promise.resolve()
     })

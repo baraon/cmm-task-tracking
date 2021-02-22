@@ -1,1 +1,47 @@
-<p>customers works!</p>
+<div class="customers">
+    <button mat-raised-button color="primary"
+            class="add-customer" (click)="addCustomer()">Add Client</button>
+    <mat-card class="customer" *ngFor="let customer of customers">
+        <mat-card-title class="customer-title">
+            <span>{{ customer.name }}</span>
+            <button mat-icon-button
+                    [matMenuTriggerFor]="options"
+                    [matMenuTriggerData]="{ item: customer, type: 'customers' }"><mat-icon>settings</mat-icon></button>
+        </mat-card-title>
+        <mat-card-content>
+            <mat-accordion>
+                <ng-container *ngFor="let project of customer.projects">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>{{ project.name }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-panel-description class="tasks">
+                            <div class="task" *ngFor="let task of project.tasks">
+                                {{ task.description }}
+                                <button mat-icon-button
+                                        [matMenuTriggerFor]="options"
+                                        [matMenuTriggerData]="{ item: task, type: 'tasks' }">
+                                    <mat-icon>settings</mat-icon>
+                                </button>
+                            </div>
+                            <button mat-raised-button color="accent"
+                                    class="add-task" (click)="addTask( project.id )">Add Task</button>
+                        </mat-panel-description>
+                        <mat-action-row>
+                            <button mat-raised-button color="accent" (click)="editItem( project, 'projects' )">Edit Project</button>
+                            <button mat-raised-button color="warm" (click)="deleteItem( project, 'projects' )">Delete Project</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+                </ng-container>
+                <button mat-raised-button color="primary"
+                        class="add-project" (click)="addProject( customer.id )">Add Project</button>
+            </mat-accordion>
+        </mat-card-content>
+    </mat-card>
+</div>
+<mat-menu #options="matMenu">
+    <ng-template matMenuContent let-item="item" let-type="type">
+        <button mat-menu-item (click)="editItem( item, type )"><mat-icon>edit</mat-icon> Edit</button>
+        <button mat-menu-item (click)="deleteItem( item, type )"><mat-icon>delete_forever</mat-icon> Delete</button>
+    </ng-template>
+</mat-menu>

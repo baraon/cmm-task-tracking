@@ -26,6 +26,10 @@
     color: white;
 }
 
+.main-navigation .links a.is-active {
+    color: var(--accent)
+}
+
 .main-navigation .links a:hover {
     color: var(--accent);
 }

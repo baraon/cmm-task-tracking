@@ -63,7 +63,6 @@ external.login = ( req, res, next ) => {
 }
 
 external.getMe = ( req, res ) => {
-  console.log( 'get me req user', req.user )
   res.json({
     user: req.user ? req.user : null
   })
