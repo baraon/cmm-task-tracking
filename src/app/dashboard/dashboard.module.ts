@@ -8,7 +8,8 @@ import { CustomersComponent } from './customers/customers.component'
 import { TasksComponent } from './tasks/tasks.component'
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component'
 import {MatDialog, MatDialogModule} from '@angular/material/dialog'
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component'
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { TaskLogDialogComponent } from './task-log-dialog/task-log-dialog.component'
 
 const routes: Routes = [{
   path: '',
@@ -31,7 +32,8 @@ const routes: Routes = [{
     CustomersComponent,
     TasksComponent,
     EditDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    TaskLogDialogComponent
   ],
   imports: [
     MatDialogModule,

@@ -53,3 +53,7 @@ a, a:hover, a:visited, a:link, a:active {
 #landing .mat-raised-button.mat-button-disabled.mat-button-disabled {
     background-color: var(--inactive);
 }
+
+#tasks .task-logs tbody tr:last-child td.mat-cell {
+    border-bottom: none;
+}

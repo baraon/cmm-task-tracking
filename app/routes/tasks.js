@@ -3,7 +3,6 @@ const models = require( '../models/' )
 let external = {}
 
 external.create = async ( req, res ) => {
-    console.log( 'task create heard' )
     if ( !req.user )
         return res.sendStatus( 401 )
 
@@ -49,7 +48,6 @@ external.update = async ( req, res ) => {
 }
 
 external.delete = async ( req, res ) => {
-    console.log( 'task delete heard' )
     if ( !req.user )
         return res.sendStatus( 401 )
 

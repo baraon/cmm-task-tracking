@@ -1,10 +1,6 @@
 const express = require( 'express' )
 
 module.exports = app => {
-  let routes = {}
-
-  // authentication helper
-
   // Route functions
   const auth = require( './auth' )
   const users = require( './users' )
@@ -44,8 +40,10 @@ module.exports = app => {
   apiRouter.delete( '/tasks/:id', tasks.delete )
 
   // Task Log Routes
-  apiRouter.get( '/tasks', taskLogs.create )
-  apiRouter.delete( '/tasks/:id', taskLogs.delete )
+  apiRouter.get( '/taskLogs', taskLogs.read )
+  apiRouter.post( '/tasks/:taskId/taskLogs', taskLogs.create )
+  apiRouter.patch( '/taskLogs/:id', taskLogs.update )
+  apiRouter.delete( '/taskLogs/:id', taskLogs.delete )
 
   app.use ( '/auth', authRouter )
   app.use( '/api', apiRouter )

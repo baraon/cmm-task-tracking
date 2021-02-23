@@ -1,1 +1,37 @@
-<p>tasks works!</p>
+<div id="tasks">
+    <mat-card class="task" *ngFor="let task of tasks">
+        <mat-card-title class="title">
+            {{ task.description }}
+            <button mat-raised-button mat-icon-button color="accent" (click)="openTaskLogDialog( task.id, null, 'add' )">
+                <mat-icon>add</mat-icon>
+            </button>
+        </mat-card-title>
+        <div class="task-log-container" *ngIf="task.taskLogs.length > 0">
+            <div class="task-log-header">
+                <span></span>
+                <div>Duration</div>
+                <div>User</div>
+            </div>
+            <div class="task-logs">
+                <div class="task-log" *ngFor="let log of task.taskLogs">
+                    <div>
+                        <button mat-icon-button
+                                [matMenuTriggerFor]="options"
+                                [matMenuTriggerData]="{ log: log, taskId: task.id }">
+                            <mat-icon>settings</mat-icon>
+                        </button>
+                    </div>
+                    <div>{{ log.duration_minutes }}</div>
+                    <div *ngIf="log.user && log.user.email">{{ log.user.email }}</div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
+<mat-menu #options="matMenu">
+    <ng-template matMenuContent let-log="log" let-taskId="taskId" let-context="context">
+        <button mat-menu-item (click)="openTaskLogDialog( taskId, log, 'edit' )"><mat-icon>edit</mat-icon> Edit</button>
+        <button mat-menu-item (click)="openTaskLogDialog( taskId, log, 'delete' )"><mat-icon>delete_forever</mat-icon> Delete</button>
+    </ng-template>
+</mat-menu>
+
