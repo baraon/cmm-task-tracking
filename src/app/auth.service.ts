@@ -19,6 +19,7 @@ export class AuthService {
 
   init(): Promise<any> {
     return this.http.get( '/api/me' ).toPromise().then( (data: any) => {
+      console.log( 'init data', data )
       this.setUser( data )
       return Promise.resolve()
     })
@@ -41,6 +42,7 @@ export class AuthService {
 
       sessionStorage.clear()
     }
+    console.log( this.user )
   }
 
   logout(): void {

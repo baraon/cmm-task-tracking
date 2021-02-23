@@ -2,6 +2,7 @@
     <mat-card class="task" *ngFor="let task of tasks">
         <mat-card-title class="title">
             {{ task.description }}
+            <span>Project: {{ task.project.name }}</span>
             <button mat-raised-button mat-icon-button color="accent" (click)="openTaskLogDialog( task.id, null, 'add' )">
                 <mat-icon>add</mat-icon>
             </button>
@@ -9,7 +10,7 @@
         <mat-card-content class="task-log-container" *ngIf="task.taskLogs.length > 0">
             <div class="task-log-header">
                 <span></span>
-                <div>Duration</div>
+                <div>Duration (minutes)</div>
                 <div>User</div>
             </div>
             <div class="task-logs">

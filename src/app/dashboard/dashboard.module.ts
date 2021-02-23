@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import {APP_INITIALIZER, NgModule} from '@angular/core'
 import { RouterModule, Routes, Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { MaterialModule } from '../material.module'
@@ -10,6 +10,7 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component'
 import {MatDialog, MatDialogModule} from '@angular/material/dialog'
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { TaskLogDialogComponent } from './task-log-dialog/task-log-dialog.component'
+import { AuthService } from '../auth.service'
 
 const routes: Routes = [{
   path: '',
@@ -45,6 +46,17 @@ const routes: Routes = [{
   ],
   entryComponents: [
       EditDialogComponent
+  ],
+  providers: [
+    { // initialize app service globally
+      provide: APP_INITIALIZER,
+      // tslint:disable-next-line:typedef
+      useFactory(as: AuthService) {
+        return () => as.init()
+      },
+      multi: true,
+      deps: [ AuthService ],
+    }
   ]
 })
 export class DashboardModule { }

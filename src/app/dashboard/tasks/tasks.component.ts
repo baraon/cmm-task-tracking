@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { MatDialog } from '@angular/material/dialog'
 import {TaskLogDialogComponent} from '../task-log-dialog/task-log-dialog.component'
+import {AuthService} from '../../auth.service'
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'cmm-task-tracking-tasks',
@@ -12,10 +14,16 @@ export class TasksComponent implements OnInit {
 
   tasks = []
 
-  constructor( public http: HttpClient, public dialog: MatDialog ) { }
+  constructor( public http: HttpClient, public dialog: MatDialog, private auth: AuthService, public router: Router ) { }
   displayedColumns: string[] = [ 'actions', 'duration', 'user' ]
 
   ngOnInit(): void {
+    if ( !this.auth.isLoggedIn ) {
+      console.log( 'redirect' )
+      this.router.navigate( [ '/login' ] )
+      return
+    }
+
     this.http.get( '/api/taskLogs' ).toPromise().then( (data: any) => {
       console.log( data.tasks )
       this.tasks = data.tasks

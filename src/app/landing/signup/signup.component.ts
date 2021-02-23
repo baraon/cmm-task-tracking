@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms'
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
+import { AuthService } from '../../auth.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'signup-component',
@@ -13,7 +15,7 @@ export class SignupComponent implements OnInit {
     password: [ '', Validators.required ]
   })
 
-  constructor( private fb: FormBuilder, private http: HttpClient ) { }
+  constructor( private fb: FormBuilder, private http: HttpClient, public auth: AuthService, public router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +30,9 @@ export class SignupComponent implements OnInit {
     }
 
     this.http.post( '/api/users', body, { responseType: 'text' } ).toPromise().then( ( data: any ) => {
-      console.log( data )
+
+      this.auth.setUser( data.user )
+      this.router.navigate( ['/dashboard'] )
     }).catch( err => {
       console.log( err )
     })

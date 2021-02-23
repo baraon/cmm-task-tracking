@@ -10,11 +10,12 @@ import { Router } from '@angular/router'
 export class DashboardComponent implements OnInit {
 
   constructor( private auth: AuthService, public router: Router ) {
-    if ( !this.auth.isLoggedIn )
-      router.navigate( [ '/login' ] )
   }
 
   ngOnInit(  ): void {
+    console.log( 'logged in?', this.auth.isLoggedIn )
+    if ( !this.auth.isLoggedIn )
+      this.router.navigate( [ '/login' ] )
   }
 
   logout(): void {
