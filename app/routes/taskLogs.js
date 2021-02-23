@@ -92,7 +92,6 @@ external.update = async ( req, res ) => {
 }
 
 external.delete = async ( req, res ) => {
-    console.log( 'task delete heard' )
     if ( !req.user )
         return res.sendStatus( 401 )
 
@@ -101,7 +100,6 @@ external.delete = async ( req, res ) => {
 
     console.log( req.params.id )
     return models.TaskLog.deleteTaskLog( req.params.id ).then( result => {
-        console.log( result )
         return res.json({ id: req.params.id })
     }).catch( err => {
         console.error( err )

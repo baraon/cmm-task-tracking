@@ -43,7 +43,6 @@ export class CustomersComponent implements OnInit {
 
   addCustomer( ): void {
     this.openEditDialog( null, 'customers' )
-    console.log( 'add client button click' )
   }
 
   editItem( item, type, context = null ): void {
@@ -139,7 +138,8 @@ export class CustomersComponent implements OnInit {
 
   openDeleteDialog( item, type = null, context ): void {
     const dialogRef = this.dialog.open( DeleteDialogComponent, {
-      width: '400px'
+      width: '400px',
+      data: { item, type, context }
     })
 
     dialogRef.afterClosed().subscribe( result => {

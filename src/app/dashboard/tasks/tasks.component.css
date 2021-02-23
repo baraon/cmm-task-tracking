@@ -2,7 +2,7 @@
     display: grid;
     box-sizing: border-box;
     grid-gap: 16px;
-    padding: 16px;
+    padding: 16px 32px;
     overflow-y: scroll;
     height: 100%;
     max-height: calc( 100vh - 64px );
@@ -19,6 +19,7 @@
 .task .title {
     display: flex;
     justify-content: space-between;
+    height: 48px;
 }
 
 .task-log-container {

@@ -24,6 +24,20 @@ export class EditDialogComponent implements OnInit {
       start: 'customers'
     }
   }
+  operationMessage = {
+    customers: {
+      add: 'Add Customer',
+      edit: 'Edit Customer'
+    },
+    projects: {
+      add: 'Add Project',
+      edit: 'Edit Project'
+    },
+    tasks: {
+      add: 'Add Task',
+      edit: 'Edit Task'
+    }
+  }
 
   constructor( public dialogRef: MatDialogRef<EditDialogComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any,

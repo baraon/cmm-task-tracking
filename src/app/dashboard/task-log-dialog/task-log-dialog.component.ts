@@ -13,6 +13,11 @@ export class TaskLogDialogComponent implements OnInit {
   taskId: number
   log: any
   fields: FormGroup
+  operationMessage = {
+    add: 'Add Task Log',
+    edit: 'Edit Task Log',
+    delete: 'Are you sure you want to delete this task log?'
+  }
 
   constructor( public dialogRef: MatDialogRef<TaskLogDialogComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any,

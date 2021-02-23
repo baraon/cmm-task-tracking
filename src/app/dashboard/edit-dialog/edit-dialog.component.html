@@ -1,9 +1,13 @@
-<h2>{{ operation }}</h2>
+<h2 mat-dialog-title>{{ operationMessage[ type ][ operation ]  }}</h2>
 <form [formGroup]="fields" #formDirective="ngForm">
-    <mat-form-field appearance="outline">
-        <mat-label>{{ type === 'tasks' ? 'Description' : 'Name' }}</mat-label>
-        <input matInput [formControlName]="type === 'tasks' ? 'description' : 'name'" value="" required>
-    </mat-form-field>
-    <button mat-raised-button class="submit-button" type="submit"
-            [disabled]="!fields.valid" color="primary" (click)="formRouter(formDirective)">Register</button>
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>{{ type === 'tasks' ? 'Description' : 'Name' }}</mat-label>
+            <input matInput [formControlName]="type === 'tasks' ? 'description' : 'name'" value="" required>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button class="submit-button" type="submit"
+                [disabled]="!fields.valid" color="primary" (click)="formRouter(formDirective)">Submit</button>
+    </div>
 </form>
