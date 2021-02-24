@@ -5,7 +5,8 @@ let external = {}
 const transformer = ( taskLog ) => {
     return {
         id: taskLog.id,
-        duration_minutes: taskLog.duration_minutes,
+        start: taskLog.start,
+        stop: taskLog.stop,
         user: {
             id: taskLog.user_id,
             email: taskLog.user_email
@@ -17,10 +18,10 @@ external.create = async ( req, res ) => {
     if ( !req.user )
         return res.sendStatus( 401 )
 
-    if ( !req.params || !req.params.taskId || !req.body || !req.body.duration )
+    if ( !req.params || !req.params.taskId )
         return res.sendStatus( 422 )
 
-    return models.TaskLog.createTaskLog( req.body.duration, req.params.taskId, req.user.id ).then( async results => {
+    return models.TaskLog.createTaskLog( req.params.taskId, req.user.id ).then( async results => {
         if ( !results || !results.length )
             return res.sendStatus( 500 )
 
@@ -29,7 +30,7 @@ external.create = async ( req, res ) => {
         if ( !taskLog )
             return res.sendStatus( 500 )
 
-        return res.json({ task: transformer( taskLog ) })
+        return res.json({ taskLog: transformer( taskLog ) })
     })
 }
 
@@ -67,7 +68,6 @@ external.read = async ( req, res ) => {
                 if ( log.user_id === req.user.id )
                     transformed[ index ].taskLogs.push( transformer( log ) )
             }
-
         })
 
         return res.json({ tasks: transformed })
@@ -78,16 +78,24 @@ external.update = async ( req, res ) => {
     if ( !req.user )
         return res.sendStatus( 401 )
 
-    if ( !req.params || !req.params.id || !req.body || !req.body.duration )
+    if ( !req.params || !req.params.id )
         return res.sendStatus( 422 )
 
-    return models.TaskLog.editTaskLog( req.body.duration, req.params.id ).then( async results => {
+    // date verification
+    /*
+    const start = new Date( req.body.start )
+    const stop = new Date( req.body.stop )
+    if ( stop < start )
+        return res.sendStatus( 422 )
+     */
+
+    return models.TaskLog.editTaskLog( req.params.id ).then( async results => {
         // get updated task log
         const taskLog = await models.TaskLog.findById( req.params.id ).then( taskLog => taskLog[0][0] )
         if ( !taskLog )
             return res.sendStatus( 500 )
 
-        return res.json({ task: transformer( taskLog ) })
+        return res.json({ taskLog: transformer( taskLog ) })
     })
 }
 

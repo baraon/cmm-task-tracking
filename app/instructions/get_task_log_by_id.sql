@@ -1,5 +1,6 @@
 SELECT task_logs.id as id,
-       duration_minutes,
+       start,
+       stop,
        users.id as user_id,
        users.email as user_email
        FROM task_logs

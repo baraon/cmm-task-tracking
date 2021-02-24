@@ -3,14 +3,17 @@
         <mat-card-title class="title">
             {{ task.description }}
             <span>Project: {{ task.project.name }}</span>
-            <button mat-raised-button mat-icon-button color="accent" (click)="openTaskLogDialog( task.id, null, 'add' )">
-                <mat-icon>add</mat-icon>
+            <button mat-raised-button mat-icon-button color="accent"
+                    (click)="task.activeTaskLog ? stopTaskLog( task ) : startTaskLog( task )">
+                <mat-icon [innerHTML]="task.activeTaskLog ? 'pause' : 'play_arrow'"></mat-icon>
             </button>
         </mat-card-title>
         <mat-card-content class="task-log-container" *ngIf="task.taskLogs.length > 0">
             <div class="task-log-header">
                 <span></span>
-                <div>Duration (minutes)</div>
+                <div>Start</div>
+                <stop>Stop</stop>
+                <div>Duration</div>
                 <div>User</div>
             </div>
             <div class="task-logs">
@@ -22,7 +25,9 @@
                             <mat-icon>settings</mat-icon>
                         </button>
                     </div>
-                    <div>{{ log.duration_minutes }}</div>
+                    <div>{{ readableTime( log.start ) }}</div>
+                    <div>{{ readableTime( log.stop ) }}</div>
+                    <div>{{ log.stop ? getDuration( log.start, log.stop ) : '' }}</div>
                     <div *ngIf="log.user && log.user.email">{{ log.user.email }}</div>
                 </div>
             </div>
@@ -31,7 +36,6 @@
 </div>
 <mat-menu #options="matMenu">
     <ng-template matMenuContent let-log="log" let-taskId="taskId" let-context="context">
-        <button mat-menu-item (click)="openTaskLogDialog( taskId, log, 'edit' )"><mat-icon>edit</mat-icon> Edit</button>
         <button mat-menu-item (click)="openTaskLogDialog( taskId, log, 'delete' )"><mat-icon>delete_forever</mat-icon> Delete</button>
     </ng-template>
 </mat-menu>

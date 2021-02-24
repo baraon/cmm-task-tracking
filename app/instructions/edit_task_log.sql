@@ -1,3 +1,3 @@
 UPDATE task_logs
-SET `duration_minutes`=?
+SET `stop`=CURRENT_TIMESTAMP
 WHERE `id`=?

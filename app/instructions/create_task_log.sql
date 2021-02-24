@@ -1,2 +1,2 @@
-INSERT INTO task_logs ( `duration_minutes`, `task_id`, `user_id` )
-VALUES ( ?, ?, ? )
+INSERT INTO task_logs ( `start`, `task_id`, `user_id` )
+VALUES ( CURRENT_TIMESTAMP, ?, ? )

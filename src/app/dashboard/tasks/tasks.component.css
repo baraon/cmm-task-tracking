@@ -36,8 +36,8 @@
 .task-log-header,
 .task-log {
     display: grid;
-    grid-template-areas: '. . .';
-    grid-template-columns: 56px 100px 1fr;
+    grid-template-areas: '. . . . .';
+    grid-template-columns: 56px 100px 100px 100px 1fr;
     justify-content: start;
     align-content: center;
     align-items: center;
